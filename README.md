@@ -1,2 +1,2 @@
 # Jade-example
-Jade test files
+A repository for jade 
