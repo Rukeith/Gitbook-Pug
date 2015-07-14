@@ -263,3 +263,82 @@ The object does not have to be an object literal. It can also just be a variable
 
 ##Interpolation
 Jade provides operators for a variety of your different interpolative needs.
+###Define variables
+If you've worked with JavaScript, this should look very familiar because it is JS. In fact, any JS can be executed in a template, it just needs a dash and a space in front of it.  
+`- var some_text = "Hello World";`
+###String Interpolation
+* Escaped：
+This can be any valid Javascript expression, so you can do whatever feels good.
+
+		- var title = "On Dogs: Man's Best Friend";
+		- var author = "enlore";
+		- var theGreat = "<span>escape!</span>";
+
+		h1= title
+		p Written with love by #{author}
+		p This will be safe: #{theGreat}
+		p This is #{author.toUpperCase()}
+-->
+
+		<h1>On Dogs: Man's Best Friend</h1>
+		<p>Written with love by enlore</p>
+		<p>This will be safe: &lt;span&gt;escape!&lt;/span&gt;</p>
+		<p>This is ENLORE</p>
+		
+	It even works in text blocks:
+
+		- i = ['proident', 'dreamcatcher', 'ennui', 'Tonx']  
+		pre  
+			| #{i[0]} #{i[1]}  
+			| #{i[2]} #{i[3]}  
+--> `<pre>proident dreamcatcher ennui Tonx</pre>`
+
+	It works in attributes:
+	
+		- base_url = "http://slang.cx"
+		a(href="#{base_url}/about")
+--> `<a href="http://slang.cx/about"></a>`
+
+* Unescaped：
+You don't have to play it safe. You can buffer unescaped values into your templates, too.
+
+		- var riskyBusiness = "<em>Some of the girls are wearing my mother's clothing.</em>";
+		.quote
+		  p Joel: !{riskyBusiness}
+-->
+
+		<div class="quote">
+		  <p>Joel: <em>Some of the girls are wearing my mother's clothing.</em></p>
+		</div>
+###Tag Interpolation
+You can interpolation tag into jade. Wrap an inline Jade tag declaration in `#[` and `]` and it'll be evaluated and buffered into the content of its containing tag.
+
+		p.
+		  If you take a look at this page's source #[a(target="_blank", href="https://github.com/jadejs/jade/blob/master/docs/views/reference/interpolation.jade") on GitHub],
+		  you'll see several places where the tag interpolation operator is
+		  used, like so.
+-->
+
+		<p>If you take a look at this page's source <a target="_blank" href="https://github.com/jadejs/jade/blob/master/docs/views/reference/interpolation.jade">on GitHub</a>,
+		  you'll see several places where the tag interpolation operator is
+		  used, like so.
+		</p>
+
+###Without interpolation
+	- i = {"type": "text", "name": "Bob"}
+	input(type="#{i.type}", value="#{i.name}")
+	or
+	input(type=i.type, value=i.name)
+--> `<input type="text" value="Bob">`  
+
+	- content = "Richardson leggings
+	Cosby sweater, pariatur locavore
+	Pinterest Schlitz"
+	p #{content}
+	or
+	p=content
+-->
+
+	<p>Richardson leggings Cosby
+	sweater, pariatur locavore
+	Pinterest Schlitz</p>
