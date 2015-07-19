@@ -264,11 +264,35 @@ The object does not have to be an object literal. It can also just be a variable
 ##Interpolation
 Jade provides operators for a variety of your different interpolative needs.
 ###Define variables
-If you've worked with JavaScript, this should look very familiar because it is JS. In fact, any JS can be executed in a template, it just needs a dash and a space in front of it.  
+If you've worked with JavaScript, this should look very familiar because it is JS. In fact, any JS can be executed in a template, it just needs a dash(`-`) and a space in front of it.  
 `- var some_text = "Hello World";`
+####Unbuffered Code
+	- for (var x = 0; x < 3; x++)
+  		li item
+-->
+
+	<li>item</li>
+	<li>item</li>
+	<li>item</li>
+Jade 也提供區塊式的  
+
+	-
+		list = ["Uno", "Dos", "Tres",
+          "Cuatro", "Cinco", "Seis"]
+	each item in list
+		li= item
+-->
+		
+	<li>Uno</li>
+	<li>Dos</li>
+	<li>Tres</li>
+	<li>Cuatro</li>
+	<li>Cinco</li>
+	<li>Seis</li>
+
 ###String Interpolation
 * Escaped：
-This can be any valid Javascript expression, so you can do whatever feels good.
+Buffered code starts with `=` and outputs the result of evaluating the JavaScript expression in the template. This can be any valid Javascript expression, so you can do whatever feels good.
 
 		- var title = "On Dogs: Man's Best Friend";
 		- var author = "enlore";
@@ -300,7 +324,7 @@ This can be any valid Javascript expression, so you can do whatever feels good.
 --> `<a href="http://slang.cx/about"></a>`
 
 * Unescaped：
-You don't have to play it safe. You can buffer unescaped values into your templates, too.
+Unescaped buffered code starts with `!=` and outputs the result of evaluating the JavaScript expression in the template. This does not do any escaping, so is not safe for user input.
 
 		- var riskyBusiness = "<em>Some of the girls are wearing my mother's clothing.</em>";
 		.quote
@@ -310,6 +334,7 @@ You don't have to play it safe. You can buffer unescaped values into your templa
 		<div class="quote">
 		  <p>Joel: <em>Some of the girls are wearing my mother's clothing.</em></p>
 		</div>
+
 ###Tag Interpolation
 You can interpolation tag into jade. Wrap an inline Jade tag declaration in `#[` and `]` and it'll be evaluated and buffered into the content of its containing tag.
 
