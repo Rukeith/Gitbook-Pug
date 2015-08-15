@@ -69,7 +69,7 @@ Jade 是以縮排為基準的方式來編排，所以沒有 close tag 也沒有 
 	spam             <spam></spam>
 
 ###Block Expansion
-為了解省空間，Jade 也提供同行的方式來呈現巢狀標籤結構  
+為了節省空間，Jade 也提供同行的方式來呈現巢狀標籤結構  
 
 	a: img   --> <a><img/></a>
 	
